@@ -44,7 +44,7 @@ public class SupplyService {
 
     @PostConstruct
     public void init() {
-        BeerItem[] beerItems = restTemplate.getForObject(beerProducerBeersUrl, BeerItem[].class);
+        BeerItem[] beerItems = restTemplate.getForObject("//beer-supplier/supply/all", BeerItem[].class);
         for (BeerItem beerItem : beerItems) {
             beerItem.setStock(100);
         }
@@ -53,7 +53,7 @@ public class SupplyService {
 
     public void fillSupplyWith(BeerItem beerItem) {
         storeOutgoingOrder(beerItem.getName(), 1000);
-        restTemplate.postForObject(beerProducerOrderUrl, new OrderDTO(clientName, 1000, beerItem.getName()),
+        restTemplate.postForObject("//beer-supplier/order", new OrderDTO(clientName, 1000, beerItem.getName()),
                                    DeliveryDTO.class);
     }
 

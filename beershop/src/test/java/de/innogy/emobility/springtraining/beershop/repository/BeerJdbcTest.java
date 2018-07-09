@@ -2,6 +2,7 @@ package de.innogy.emobility.springtraining.beershop.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.Map;
 @Slf4j
 @RunWith(SpringRunner.class)
 @JdbcTest
+@Ignore
 public class BeerJdbcTest {
 
     @Autowired

@@ -4,6 +4,7 @@ import de.innogy.emobility.springtraining.beersupplier.exception.NotInStockExcep
 import de.innogy.emobility.springtraining.beersupplier.model.Beer;
 import de.innogy.emobility.springtraining.beersupplier.service.BeerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,6 +39,13 @@ public class SupplyController {
     @GetMapping("/all")
     public List<Beer> getAll() {
         return beerService.provideStock();
+    }
+
+
+    // Aufgabe 5.1
+    @GetMapping("/cloud-config")
+    public String getConfigParam(@Value ("${cloud.config.param}") String param) {
+        return param;
     }
 
 }

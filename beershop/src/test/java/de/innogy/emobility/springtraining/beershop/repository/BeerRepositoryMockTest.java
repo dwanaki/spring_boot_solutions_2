@@ -3,6 +3,7 @@ package de.innogy.emobility.springtraining.beershop.repository;
 import de.innogy.emobility.springtraining.beershop.model.BeerItem;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 @Slf4j
+@Ignore
 public class BeerRepositoryMockTest {
 
     @Mock

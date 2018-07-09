@@ -2,6 +2,7 @@ package de.innogy.emobility.springtraining.beershop.repository;
 
 import de.innogy.emobility.springtraining.beershop.model.BeerItem;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = NONE)
 @Slf4j
+@Ignore
 public class BeerRepositoryIntegrationTest {
 
     @Autowired
