@@ -7,19 +7,13 @@ import de.innogy.emobility.springtraining.beershop.exception.SorryAlcoholicOnlyD
 import de.innogy.emobility.springtraining.beershop.model.BeerItem;
 import de.innogy.emobility.springtraining.beershop.repository.BeerItemRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriBuilder;
-import org.springframework.web.util.UriBuilderFactory;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.List;
 
 @Slf4j
 @Service
