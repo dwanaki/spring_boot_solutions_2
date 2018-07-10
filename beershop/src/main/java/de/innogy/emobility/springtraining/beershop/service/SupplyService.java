@@ -6,6 +6,7 @@ import de.innogy.emobility.springtraining.beershop.exception.OutOfBeerException;
 import de.innogy.emobility.springtraining.beershop.exception.SorryAlcoholicOnlyDudeException;
 import de.innogy.emobility.springtraining.beershop.model.BeerItem;
 import de.innogy.emobility.springtraining.beershop.repository.BeerItemRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriBuilderFactory;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
 
+@Slf4j
 @Service
 public class SupplyService {
 
@@ -42,19 +47,25 @@ public class SupplyService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @PostConstruct
-    public void init() {
-        BeerItem[] beerItems = restTemplate.getForObject("//beer-supplier/supply/all", BeerItem[].class);
-        for (BeerItem beerItem : beerItems) {
-            beerItem.setStock(100);
-        }
-        beerItemRepository.saveAll(Arrays.asList(beerItems));
-    }
+//    @PostConstruct
+//    public void init() {
+//        BeerItem[] beerItems = restTemplate
+//                .getForObject(UriComponentsBuilder.fromUriString("//beersupplier/supply/all").build().toUri(),
+//                              BeerItem[].class);
+//        for (BeerItem beerItem : beerItems) {
+//            beerItem.setStock(100);
+//        }
+//        beerItemRepository.saveAll(Arrays.asList(beerItems));
+//    }
 
     public void fillSupplyWith(BeerItem beerItem) {
         storeOutgoingOrder(beerItem.getName(), 1000);
-        restTemplate.postForObject("//beer-supplier/order", new OrderDTO(clientName, 1000, beerItem.getName()),
-                                   DeliveryDTO.class);
+        try {
+            restTemplate.postForObject("//beersupplier/order", new OrderDTO(clientName, 1000, beerItem.getName()),
+                                       DeliveryDTO.class);
+        } catch (Exception e){
+            log.error("Exception", e);
+        }
     }
 
     public DeliveryDTO orderBeer(OrderDTO orderDTO) throws OutOfBeerException {
