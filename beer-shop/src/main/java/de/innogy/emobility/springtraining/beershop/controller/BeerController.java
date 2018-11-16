@@ -39,7 +39,7 @@ public class BeerController {
         return supplyService.provideMenu();
     }
 
-    // Lesson 4.3
+    // Lesson 4.2
     @HystrixCommand(fallbackMethod = "provideFallbackList")
     @GetMapping("/supplier/beer")
     public List<BeerItem> getSupplierBeer() {
