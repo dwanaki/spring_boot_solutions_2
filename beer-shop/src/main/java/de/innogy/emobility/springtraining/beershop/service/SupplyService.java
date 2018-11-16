@@ -5,8 +5,6 @@ import de.innogy.emobility.springtraining.beershop.controller.OrderDTO;
 import de.innogy.emobility.springtraining.beershop.exception.OutOfBeerException;
 import de.innogy.emobility.springtraining.beershop.model.BeerItem;
 import de.innogy.emobility.springtraining.beershop.repository.BeerItemRepository;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -54,9 +52,6 @@ public class SupplyService {
     public void fillSupplyWith(BeerItem beerItem) {
         storeOutgoingOrder(beerItem.getName(), 1000);
         restTemplate.postForObject(beerProducerOrderUrl, new OrderDTO(clientName, 1000, beerItem.getName()), DeliveryDTO.class);
-        //TODO: Remove this is handled via RabbitService
-        //beerItem.setStock(beerItem.getStock() + order.getQuantity());
-        //beerItemRepository.save(beerItem);
     }
 
     public DeliveryDTO orderBeer(OrderDTO orderDTO) throws OutOfBeerException {
